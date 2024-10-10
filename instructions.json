@@ -1,0 +1,91 @@
+[
+    {
+        "step": 0,
+        "name": "Sprint Planning and Setup",
+        "input": ["./input/sprint.md", "./input/tech_stack.md"],
+        "prompt": "Read the sprint.md file to understand the current sprint's goals and user stories. Review the tech_stack.md file for any updates or changes. Set up or update the project structure, development environment, and any new dependencies required for this sprint. Update the project's README.md with the current sprint's goals and any new setup instructions.",
+        "output": [
+            "./output/project_structure.md",
+            "./README.md"
+        ],
+        "goal": "Prepared development environment and updated documentation for the current sprint."
+    },
+    {
+        "step": 1,
+        "name": "Backend Development",
+        "input": ["./input/sprint.md"],
+        "prompt": "Implement the backend features and API endpoints required for the current sprint's user stories. Use NestJS and follow RESTful principles. Write unit tests for all new functionality. Update any existing endpoints or models as necessary. Perform batch reading and writing operations when appropriate to optimize token usage.",
+        "output": [
+            "./backend/src/",
+            "./backend/test/"
+        ],
+        "goal": "Functional backend implementation of the current sprint's features with passing unit tests."
+    },
+    {
+        "step": 2,
+        "name": "Frontend Development",
+        "input": ["./input/sprint.md"],
+        "prompt": "Implement the frontend features required for the current sprint's user stories. Use React and follow the existing component structure. Write unit tests for all new components. Update any existing components as necessary. Ensure responsive design and accessibility. Perform batch reading and writing operations when appropriate to optimize token usage.",
+        "output": [
+            "./frontend/src/",
+            "./frontend/test/"
+        ],
+        "goal": "Functional frontend implementation of the current sprint's features with passing unit tests."
+    },
+    {
+        "step": 3,
+        "name": "Integration and E2E Testing",
+        "input": ["./input/sprint.md"],
+        "prompt": "Write integration tests for the new features, ensuring proper communication between frontend and backend. Implement end-to-end (E2E) tests using Cypress to cover the main user flows introduced in this sprint. Update existing E2E tests if necessary.",
+        "output": [
+            "./backend/test/integration/",
+            "./cypress/integration/"
+        ],
+        "goal": "Comprehensive integration and E2E tests for the new features."
+    },
+    {
+        "step": 4,
+        "name": "Documentation Update",
+        "input": ["./input/sprint.md"],
+        "prompt": "Update the API documentation using Swagger for any new or modified endpoints. Update the user documentation to reflect new features or changes in existing functionality. Ensure all code is properly commented and follows the project's documentation standards.",
+        "output": [
+            "./backend/src/main.ts",
+            "./docs/api.md",
+            "./docs/user-guide.md"
+        ],
+        "goal": "Up-to-date API and user documentation reflecting the current sprint's changes."
+    },
+    {
+        "step": 5,
+        "name": "Code Review and Refactoring",
+        "input": ["./input/sprint.md"],
+        "prompt": "Conduct a thorough code review of all new implementations. Identify areas for refactoring to improve code quality, performance, or maintainability. Implement necessary refactoring. Ensure all code adheres to the project's style guide and best practices.",
+        "output": [
+            "./output/code_review.md"
+        ],
+        "goal": "High-quality, maintainable code that adheres to project standards."
+    },
+    {
+        "step": 6,
+        "name": "Deployment and CI/CD Update",
+        "input": ["./input/sprint.md", "./input/tech_stack.md"],
+        "prompt": "Update the Docker configuration if necessary. Modify the CI/CD pipeline in GitHub Actions to accommodate any new build, test, or deployment requirements. Ensure the application can be deployed to the GCP environment. Update any deployment scripts or configuration files.",
+        "output": [
+            "./docker-compose.yml",
+            "./.github/workflows/ci.yml",
+            "./deploy-gcp.sh"
+        ],
+        "goal": "Updated deployment process and CI/CD pipeline reflecting the current sprint's changes."
+    },
+    {
+        "step": 7,
+        "name": "Sprint Review and Lessons Learned",
+        "input": ["./input/sprint.md"],
+        "prompt": "Review the completed user stories and features. Identify any unfinished tasks or newly discovered issues. Reflect on the development process, challenges faced, and solutions found. Document lessons learned, including insights from implementation struggles, user input, and examples encountered. Update the lessons_learned.md file with these reflections.",
+        "output": [
+            "./output/sprint_review.md",
+            "./lessons_learned.md"
+        ],
+        "goal": "Comprehensive sprint review and updated lessons learned documentation."
+    }
+]
