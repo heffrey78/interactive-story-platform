@@ -1,0 +1,16 @@
+{
+  "name": "Interactive Story Creator",
+  "short_name": "Story Creator",
+  "description": "Create and manage interactive stories with branching narratives",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1976d2",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}

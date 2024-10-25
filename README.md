@@ -1,6 +1,6 @@
 # Interactive Storytelling Platform
 
-This project is a backend API for an Interactive Storytelling Platform built with NestJS and PostgreSQL.
+This project is an Interactive Storytelling Platform with a NestJS backend API and a React frontend, using PostgreSQL for the database.
 
 ## Current Sprint: Core Storytelling Functionality
 
@@ -18,22 +18,23 @@ This project is a backend API for an Interactive Storytelling Platform built wit
 
 ## Tech Stack
 
-### Backend (Current Focus)
+### Backend
 - NestJS with TypeScript
 - PostgreSQL for database
 - TypeORM for ORM
 - Jest for unit and integration testing
 
+### Frontend
+- React 17 with TypeScript
+- Material-UI for styling
+- Axios for API calls
+- Jest and React Testing Library for unit testing
+- Cypress for E2E testing
+
 ### DevOps
 - Docker and docker-compose for containerization
 - GitHub Actions for CI/CD (to be implemented)
 - GCP for cloud deployment (to be implemented)
-
-### Frontend (To be implemented)
-- React 18 with TypeScript
-- styled-components for styling
-- Axios for API calls
-- Jest and React Testing Library for unit testing
 
 ## Prerequisites
 
@@ -44,7 +45,7 @@ This project is a backend API for an Interactive Storytelling Platform built wit
 
 1. Clone the repository:
    ```
-   git clone https://github.com/heffrey78/interactive-storytelling-platform.git
+   git clone https://github.com/yourusername/interactive-storytelling-platform.git
    cd interactive-storytelling-platform
    ```
 
@@ -53,39 +54,125 @@ This project is a backend API for an Interactive Storytelling Platform built wit
    docker-compose up --build
    ```
 
-3. The API will be available at `http://localhost:3000`
-
-## API Documentation
-
-Once the application is running, you can access the Swagger API documentation at `http://localhost:3000/api`.
+3. The frontend will be available at `http://localhost:3000`
+4. The backend API will be available at `http://localhost:3001`
 
 ## Development
 
-To run the application in development mode:
+The Docker setup includes hot-reloading for both frontend and backend, so you can make changes to the code and see them reflected immediately.
 
-```
-docker-compose up
-```
+### VS Code Debugging
 
-This will start the application with hot-reloading enabled.
+For backend debugging:
+1. Ensure the containers are running (`docker-compose up`)
+2. In VS Code, go to the Debug view
+3. Select "Attach to Backend" from the dropdown
+4. Click the "Start Debugging" button (or press F5)
+
+You can now set breakpoints in your backend code and debug as usual.
+
+## API Documentation
+
+Once the application is running, you can access the Swagger API documentation at `http://localhost:3001/api`.
 
 ## Running Tests
 
-(To be implemented)
+### Backend Tests
 
-- Backend tests: `cd backend && npm test`
-- E2E tests: `npm run test:e2e`
+To run backend tests:
+```
+docker-compose run backend npm test
+```
+
+This will run all unit tests for the backend. You should see output indicating which tests have passed or failed.
+
+To run tests with coverage information:
+```
+docker-compose run backend npm run test:cov
+```
+
+To run a specific test file:
+```
+docker-compose run backend npm test -- path/to/test-file.spec.ts
+```
+
+### Frontend Tests
+
+To run frontend unit tests:
+```
+docker-compose run frontend npm test
+```
+
+To run Cypress E2E tests:
+```
+docker-compose run frontend npm run test:e2e
+```
+
+To run Cypress E2E tests locally:
+```
+cd frontend && npx cypress run --spec "cypress/integration/main_user_flows.cy.js"
+```
 
 ## Deployment
 
-Deployment instructions to Google Cloud Platform will be added in future sprints.
+The application is set up for deployment to Google Cloud Platform (GCP) using Google Cloud Run. The deployment process is automated using GitHub Actions.
+
+### Prerequisites for Deployment
+
+1. A Google Cloud Platform account with billing enabled
+2. A GCP project created for this application
+3. Google Cloud SDK installed and configured locally
+4. Docker installed locally
+
+### Deployment Process
+
+1. Ensure all changes are committed and pushed to the `main` branch on GitHub.
+2. The GitHub Actions workflow will automatically trigger on push to the `main` branch.
+3. The workflow will:
+   - Run tests for both frontend and backend
+   - Build Docker images for production
+   - Push the Docker images to Google Container Registry
+   - Deploy the images to Google Cloud Run
+
+### Manual Deployment
+
+If you need to deploy manually, you can use the following steps:
+
+1. Build the production Docker images:
+   ```
+   docker-compose -f docker-compose.prod.yml build
+   ```
+
+2. Push the images to Google Container Registry:
+   ```
+   docker tag interactive-storytelling-frontend:latest gcr.io/[YOUR_PROJECT_ID]/interactive-storytelling-frontend:latest
+   docker tag interactive-storytelling-backend:latest gcr.io/[YOUR_PROJECT_ID]/interactive-storytelling-backend:latest
+   docker push gcr.io/[YOUR_PROJECT_ID]/interactive-storytelling-frontend:latest
+   docker push gcr.io/[YOUR_PROJECT_ID]/interactive-storytelling-backend:latest
+   ```
+
+3. Deploy to Google Cloud Run:
+   ```
+   gcloud run deploy interactive-storytelling-frontend --image gcr.io/[YOUR_PROJECT_ID]/interactive-storytelling-frontend:latest --platform managed --region us-central1 --allow-unauthenticated
+   gcloud run deploy interactive-storytelling-backend --image gcr.io/[YOUR_PROJECT_ID]/interactive-storytelling-backend:latest --platform managed --region us-central1 --allow-unauthenticated
+   ```
+
+Replace `[YOUR_PROJECT_ID]` with your actual GCP project ID.
+
+### Environment Variables
+
+Ensure that you have set up the following environment variables in your GCP project:
+
+- `DB_USERNAME`
+- `DB_PASSWORD`
+- `DB_NAME`
+
+These should be set as secrets in your GitHub repository for the CI/CD process, and in your GCP project for manual deployments.
 
 ## Documentation
 
-- API documentation: To be added using Swagger
+- API documentation: Available at `http://localhost:3001/api` when the application is running
 - User guide: To be implemented
-
-For more detailed information about the project structure and development guidelines, please refer to the `docs` directory (to be implemented).
 
 ## Contributing
 

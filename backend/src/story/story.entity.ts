@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { StorySegment } from './story-segment.entity';
 
 @Entity()
@@ -11,4 +11,10 @@ export class Story {
 
   @OneToMany(() => StorySegment, segment => segment.story)
   segments: StorySegment[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

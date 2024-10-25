@@ -6,8 +6,14 @@ export class StorySegment {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ length: 100 })
+  title: string;
+
   @Column('text')
   content: string;
+
+  @Column({ default: false, nullable: true })
+  isInitial?: boolean;
 
   @ManyToOne(() => Story, story => story.segments)
   story: Story;
@@ -19,5 +25,5 @@ export class StorySegment {
   nextSegments: StorySegment[];
 
   @Column('json')
-  choices: { text: string; nextSegmentId: number }[];
+  choices: { id: number; text: string; nextSegmentId?: number | null }[];
 }

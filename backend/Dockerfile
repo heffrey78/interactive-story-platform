@@ -1,6 +1,6 @@
-FROM node:16
+FROM node:18
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
@@ -17,6 +17,6 @@ COPY . .
 # Build the application
 RUN npm run build
 
-EXPOSE 3000
+EXPOSE 3001 9229
 
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "start:debug"]

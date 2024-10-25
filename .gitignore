@@ -37,3 +37,14 @@ coverage/
 # Operating System Files
 .DS_Store
 Thumbs.db
+
+# Cypress artifacts
+frontend/cypress/screenshots/
+frontend/cypress/videos/
+
+# Credentials and keys
+*.pem
+*.key
+key.json
+**/service-account*.json
+**/credentials*.json

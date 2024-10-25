@@ -1,36 +1,62 @@
 version: '3'
-
 services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: story_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
+      - "3001:3001"
+      - "9229:9229"
     environment:
-      - NODE_ENV=development
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_USERNAME=user
-      - DB_PASSWORD=password
-      - DB_NAME=interactive_storytelling_db
-    command: npm run start:dev
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_NAME=story_db
+      - PORT=3001
+      - CORS_ORIGIN=http://localhost:3002
     depends_on:
       - db
-
-  db:
-    image: postgres:13
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=interactive_storytelling_db
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - app-network
+    command: npm run start:debug
+
+  frontend-next:
+    build:
+      context: ./frontend-next
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3000"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./frontend-next:/app
+      - /app/node_modules
+      - /app/.next
+    networks:
+      - app-network
+    depends_on:
+      - backend
+
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
-  pgdata:
+  postgres_data:
